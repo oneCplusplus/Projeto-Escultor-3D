@@ -7,14 +7,12 @@
 
 using namespace std;
 
-  // Construtor
 Sculptor ::Sculptor(int _nx, int _ny, int _nz) {
   nx = _nx;
   ny = _ny;
   nz = _nz;
   r = g = b = a = 0.5;
 
-  // Alocacao dinamica da Matriz 3D
   v = new Voxel **[nx];
 
   for (int i = 0; i < nx; i++) {
@@ -42,9 +40,7 @@ Sculptor ::Sculptor(int _nx, int _ny, int _nz) {
   }
 }
 
-// Destrutor
 Sculptor ::~Sculptor() {
-  // Liberacao da memoria alocada para a Matriz
   for (int i = 0; i < nx; i++) {
     for (int j = 0; j < ny; j++) {
       delete[] v[i][j];
@@ -57,7 +53,6 @@ Sculptor ::~Sculptor() {
   nx = ny = nz = 0;
 }
 
-// Escolha das cores, implementação do método setColor
 void Sculptor ::setColor(float mr, float mg, float mb, float ma) {
   r = mr;
   g = mg;
@@ -65,7 +60,6 @@ void Sculptor ::setColor(float mr, float mg, float mb, float ma) {
   a = ma;
 }
 
-// Ativa o voxel da posicao (mx, my, mz)
 void Sculptor ::putVoxel(int mx, int my, int mz) {
   v[mx][my][mz].show = true;
   v[mx][my][mz].r = r;
@@ -74,10 +68,8 @@ void Sculptor ::putVoxel(int mx, int my, int mz) {
   v[mx][my][mz].a = a;
 }
 
-// Desativa voxel da posicao (mx, my, mz)
 void Sculptor ::cutVoxel(int mx, int my, int mz) { v[mx][my][mz].show = false; }
 
-// Ativa uma regiao em forma de cubo
 void Sculptor ::putBox(int x0, int x1, int y0, int y1, int z0, int z1) {
 
   for (int i = x0; i < x1; i++) {
@@ -93,7 +85,6 @@ void Sculptor ::putBox(int x0, int x1, int y0, int y1, int z0, int z1) {
   }
 }
 
-// Desativa uma regiao em forma de cubo
 void Sculptor ::cutBox(int x0, int x1, int y0, int y1, int z0, int z1) {
 
   for (int i = x0; i < x1; i++) {
@@ -105,7 +96,6 @@ void Sculptor ::cutBox(int x0, int x1, int y0, int y1, int z0, int z1) {
   }
 }
 
-// Ativa uma esfera de raio r e centro x,y,z
 void Sculptor ::putSphere(int x, int y, int z, int r) {
   double x2, y2, z2;
   for (int i = 0; i < nx; i++) {
@@ -128,7 +118,6 @@ void Sculptor ::putSphere(int x, int y, int z, int r) {
   }
 }
 
-// Desativa os voxels na regiao da esfera
 void Sculptor ::cutSphere(int x_, int y_, int z_, int r_) {
   double x02, y02, z02;
   for (int i = 0; i < nx; i++) {
@@ -147,7 +136,6 @@ void Sculptor ::cutSphere(int x_, int y_, int z_, int r_) {
   }
 }
 
-// Ativa os voxels na regiao da elipsoide
 void Sculptor ::putEllipsoid(int xc, int yc, int zc, int rx, int ry, int rz) {
   double x0, y0, z0;
 
@@ -191,11 +179,10 @@ void Sculptor ::cutEllipsoid(int cx, int cy, int cz, int rx0, int ry0,
   }
 }
 
-// Criacao do arquivo .OFF
 void Sculptor ::writeOFF(const char *filename) {
   ofstream fout;
 
-  fixed(fout); // para corrigir precisao de casas decimais no arquivo .OFF
+  fixed(fout);
 
   int Nvertices = 0;
   int Nfaces = 0;
