@@ -25,7 +25,5 @@ public:
   void writeOFF(const std::string& filename);
 
 };
- * Esta documentação corresponde à versão 1.2.0 do Projeto de Esculturas 3D.
- */
 
-#endif // SCULPTOR_H
+#endif
